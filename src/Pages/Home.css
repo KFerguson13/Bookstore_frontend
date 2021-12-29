@@ -1,0 +1,22 @@
+.item {
+    height: 500px !important;
+
+}
+
+.valentines {
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+}
+
+.caption {
+    font-weight: bold;
+    color:rgb(13, 13, 48)
+}
+
+.author_feature {
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    border-color: rgb(102, 102, 214);
+}

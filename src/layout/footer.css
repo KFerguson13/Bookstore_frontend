@@ -1,0 +1,14 @@
+.footer {
+    position: relative;
+    margin-top: 100vh;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer_row {
+    width: 100%;
+    color: white;
+    
+}
+
