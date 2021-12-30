@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Search.css';
-import { Card } from 'react-bootstrap';
+import { Col, Alert, Spinner } from 'react-bootstrap';
+import Book from '../components/book';
 
 function Search() {
     const location = useLocation();
 
     const [searched, setSearched] = useState(true);
-    const [error, setError] = useState(false)
-    const [result, setResult] = useState([])
+    const [error, setError] = useState(false);
+    const [result, setResult] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [showAlert, setShowAlert] = useState(false);
+
+    const sendAlert = () => {
+        setShowAlert(true);
+    };
+
+    const dismissAlert = () => {
+        setShowAlert(false)
+    };
 
         useEffect(() => {
+            setResult([]);
+            setShowAlert(false);
             const getResult = async () => {
             setSearched(true);
             setError(false);
@@ -19,12 +32,15 @@ function Search() {
             }
 
             try {
-            const response = await fetch('/searchResult', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify({'title': location.state.test})
+                setIsLoading(true);
+                const response = await fetch('/searchResult', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json"},
+                    body: JSON.stringify({'title': location.state.test})
             })
             
+            setIsLoading(false);
+
             if (response.ok) {
                 const returnedResult = await response.json();
                 setResult(returnedResult);
@@ -43,6 +59,13 @@ function Search() {
         },[location.state])
 
 
+    if (isLoading) {
+        return (
+            <div className = "d-flex justify-content-center mt-5">
+                 <Spinner animation="border" variant="primary" />
+            </div>
+        );
+    }
     if (searched) {
         return (
                 <div>
@@ -51,14 +74,15 @@ function Search() {
                     </section>
                     <section>
                     {error && <p> Nothing was found. </p>}
-                    {!error && <div className = "d-flex justify-content-center">
-                        <Card className = "mt-2 text-center" style = {{width: '20%'}}>
-                            <Card.Img
-                                variant = "top"
-                                src = {result.image} 
-                                style = {{width: '100%', height: '20vw'}}/>
-                            <Card.Title> {result.title} by {result.author_name}</Card.Title>
-                        </Card>
+                    {!error && <div>
+                        {showAlert && 
+                            <Alert variant="success" onClose={dismissAlert} dismissible>
+                            <p> Item Succesfully added to cart </p>
+                            </Alert>
+                        }
+                        <Col>
+                            <Book title = {result.title} image = {result.image} id = {result.book_id} price = {result.price} sendAlert = {sendAlert}/>
+                        </Col>
                         </div>}
                     </section>
                 </div> 

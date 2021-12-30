@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import { Row, Alert} from 'react-bootstrap';
+import { Row, Alert, Spinner} from 'react-bootstrap';
 import './bookList.css';
 import Book from './book';
 
 function BookList() {
     const [books, setBooks] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
+        
         fetch('/books', {
         'methods': 'GET',
         headers : {'Content-Type': 'applications.json'}
         }
     ).then(response => response.json())
-    .then(response => setBooks(response))
+    .then(response => setBooks(response)).then(setIsLoading(false))
     .catch(error => console.log("Error"))
     },[])
+
 
     const sendAlert = () => {
         setShowAlert(true);
@@ -30,6 +34,9 @@ function BookList() {
             <section className = "mt-2 bg-dark">
                 <h1 className = "products" style = {{color: "white"}}> PRODUCTS </h1>
             </section>
+
+            {isLoading &&  <Spinner className = "mt-5" animation="border" variant="primary" />}
+
         {showAlert && 
             <Alert variant="success" onClose={dismissAlert} dismissible>
                 <p> Item Succesfully added to cart </p>

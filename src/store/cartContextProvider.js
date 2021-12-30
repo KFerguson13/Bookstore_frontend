@@ -18,7 +18,7 @@ const cartReducer = (state, action) => {
         if (indexOfBook !== -1) {
             const bookToAdd = {
                 ...state.booksInCart[indexOfBook],
-                quantity: state.booksInCart[indexOfBook].quantity + action.book.quantity
+                quantity: parseInt(state.booksInCart[indexOfBook].quantity) + parseInt(action.book.quantity)
             };
             updatedBooksInCart = [...state.booksInCart];
             updatedBooksInCart[indexOfBook] = bookToAdd;

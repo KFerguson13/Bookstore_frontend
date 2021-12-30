@@ -32,6 +32,7 @@ const Cart = () => {
                     'state': customerState,
                     'city': customerCity,
                     'address': address,
+                    'quantity': book.quantity
             })
         })
     }

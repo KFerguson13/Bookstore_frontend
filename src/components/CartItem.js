@@ -11,18 +11,19 @@ const CartItem = (props) => {
 
     return (
     <Col>
-    <Card style = {{width: "18rem"}}>
-        <Card.Img 
-            variant = "top" 
-            src = {props.image} 
-            alt = {props.title} 
-            />
-        <Card.Title> {props.title} </Card.Title>
-        <section> 
-            Amount in Cart: {props.quantity} 
-        </section>
-        <Button variant = "primary" onClick = {removeFromCartHandler}> Remove From Cart </Button>
-    </Card>
+        <Card style = {{width: "18rem"}}>
+            <Card.Img 
+                variant = "top" 
+                src = {props.image} 
+                alt = {props.title}
+                style = {{width: '100%', height: '25vw'}}
+                />
+            <Card.Title> {props.title} </Card.Title>
+            <section> 
+                Amount in Cart: {props.quantity} 
+            </section>
+            <Button variant = "primary" onClick = {removeFromCartHandler}> Remove From Cart </Button>
+        </Card>
     </Col>
     
     )
