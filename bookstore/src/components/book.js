@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Card, Form, Button, Col } from 'react-bootstrap';
+import { Card, Form, Button, Col, Modal } from 'react-bootstrap';
 import './book.css'
 import CartContext from '../store/cartContext';
 
@@ -8,6 +8,10 @@ const Book = props => {
     const cart_context = useContext(CartContext);
     const [quantity, setQuantity] = useState(0);
     const [validInput, setValidInput] = useState(true);
+
+    const dismissNotification = () => {
+        setValidInput(true);
+    }
 
     const addToCartHandler = () => {
 
@@ -23,6 +27,7 @@ const Book = props => {
             title: props.title,
             image: props.image,
             price: props.price,
+            author: props.author,
             quantity: quantity > 0 ? quantity : 1,
         });
 
@@ -38,6 +43,15 @@ const Book = props => {
 
 
     return (
+        <div>
+            <Modal show = {!validInput} onHide = {dismissNotification}>
+                <Modal.Header closeButton style = {{color: "red"}}>
+                    Invalid Input
+                </Modal.Header>
+                <Modal.Body>
+                    You can't order a negative number of books!
+                </Modal.Body>
+            </Modal>
         <Col>
             <Card className = "text-center m-1" style = {{ width: '18rem'}}>
                 <Card.Img 
@@ -46,18 +60,18 @@ const Book = props => {
                     alt = {props.title} 
                     style = {{width: '100%', height: '25vw'}}/>
                 <Card.Title> {props.title} </Card.Title>
+                <Card.Title> by {props.author} </Card.Title>
                 <section>
                     Price: ${props.price}
                 </section>
-                <section className>
+                <section>
                 <Form>
                     <Form.Group>
-                        {!validInput && <p style = {{color: "red"}}> Invalid input </p>}
                         <p> Enter Order Amount </p>
                         <Form.Control
                             type = "number"
-                            value = {quantity}
-                            min = {0}
+                            value = {quantity > 0 ? quantity : 1}
+                            min = {1}
                             onChange = {changeQuantityHandler}> 
                         </Form.Control>
                     </Form.Group>
@@ -66,7 +80,7 @@ const Book = props => {
                 <Button variant = "primary" onClick = {addToCartHandler} className = "mb-0"> Add to Cart </Button>
             </Card>
         </Col>
-    
+        </div>
     )
 };
 

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { Button, Row } from 'react-bootstrap';
-import CartItem from '../components/CartItem';
+import { Button} from 'react-bootstrap';
+import CartList from '../components/CartList';
 import CartContext from '../store/cartContext';
 import CheckoutForm from '../components/checkoutForm';
 import './Cart.css';
@@ -18,6 +18,7 @@ const Cart = () => {
     const closeCheckOutForm = () => {
         setShowForm(false);
     };
+
 
     const sendOrder = (firstName, lastName, customerState, customerCity, address) => {
 
@@ -43,23 +44,24 @@ const Cart = () => {
     return (
         <div className = "mt-2 text-center">
             <section className = "bg-dark">
-                <h1 className = "cart" style = {{color: "white"}}> YOUR CART </h1>
+                <h1 className = "cart"> YOUR CART </h1>
             </section>
+            
             {showForm && <CheckoutForm 
                     show = {showCheckOutForm}
                     close = {closeCheckOutForm} 
                     confirm = {sendOrder}/>}
             
             {cartEmpty && <p className = "empty-cart"> You have no items in your cart. </p>}
-            <Row className = "row-cols-auto">
-                {cart_context.booksInCart.map((book) => 
-                <CartItem title = {book.title} image = {book.image} id = {book.id} price = {book.price} quantity = {book.quantity}/>)}
-            </Row>
-            {!cartEmpty && <h1 className = "mt-4"> Total Price ${cart_context.totalPrice} </h1>}
+
+            <CartList />
+            
+            {!cartEmpty && <h1 className = "mt-4"> Total Price: ${cart_context.totalPrice} </h1>}
+            
             <Button className = "m-2 btn-lg" 
                     variant = "primary" 
                     onClick = {showCheckOutForm}
-                    disabled = {cart_context.booksInCart.length === 0}>Checkout</Button>
+                    disabled = {cart_context.booksInCart.length === 0}> Checkout </Button>
         </div>
     );
 };

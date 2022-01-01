@@ -11,19 +11,6 @@
     margin-left: 1rem;
 }
 
-.footer {
-    background: rgb(27, 26, 29);
-    bottom: 40px;
-}
-
-.brand_footer {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-left: 2rem;
-    
-}
-
 .nav-link {
     color:white;
     font-weight: bold;

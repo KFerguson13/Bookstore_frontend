@@ -5,7 +5,7 @@ import { Button, FormControl, Form, Navbar} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-export default function Header (props) {
+const Header = (props) => {
     const [title, setBookTitle] = useState('')
     let navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function Header (props) {
         let bookToFind = title;
     
         
-        navigate("/Search", { state: {test: bookToFind}})
+        navigate("/Search", { state: {bookToFind: bookToFind}})
             setBookTitle('')
         }
 
@@ -42,10 +42,13 @@ export default function Header (props) {
                         <Button 
                             variant="outline-primary" 
                             onClick = {searchHandler}
-                            className = "d-none d-md-block">Search
+                            className = "d-none d-md-block">
+                                Search
                         </Button>
                     </Form>    
             </Navbar>
         
     )
 }
+
+export default Header;

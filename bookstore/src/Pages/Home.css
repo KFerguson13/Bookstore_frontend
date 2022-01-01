@@ -1,8 +1,8 @@
 .item {
     height: 500px !important;
+    vertical-align: center;
 
 }
-
 .valentines {
     font-weight: bold;
     font-style: italic;
@@ -11,7 +11,7 @@
 
 .caption {
     font-weight: bold;
-    color:rgb(13, 13, 48)
+    color:rgb(109, 240, 207)
 }
 
 .author_feature {
