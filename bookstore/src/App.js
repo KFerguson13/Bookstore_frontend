@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Products from './Pages/Products';
-import "bootstrap/dist/css/bootstrap.min.css";
 import Home from './Pages/Home.js';
 import Search from './Pages/Search.js';
 import NotFound from './Pages/NotFound';
@@ -12,15 +11,15 @@ import CartProvider from './store/cartContextProvider';
 import { Route, Routes, BrowserRouter, Navigate} from 'react-router-dom';
 import {Container} from 'react-bootstrap';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <React.Fragment>
         <CartProvider>
+          <Header/>
           <Container fluid>
             <div className = "content">
               <div className = "content-wrap">
-                <Header/>
                 <Routes>
                   <Route path="/Home" element = { <Home /> }></Route>
                   <Route path = "/AllBooks" element = { <Products /> }> </Route>
@@ -30,9 +29,9 @@ function App() {
                   <Route path = "*" element = { <NotFound/> } > </Route>
                 </Routes>
               </div>
-              <Footer/>
             </div>
           </Container>
+          <Footer/>
         </CartProvider>
       </React.Fragment>
     </BrowserRouter>

@@ -3,7 +3,10 @@ import './Home.css';
 
 import {Carousel, Row, Col} from 'react-bootstrap';
 
-function Home() {
+/** This component is the application home page. Nothing too complicated occurs here, it's mostly just a decorative front page
+    that includes things such as a featured author and an advertisement of what books are on sale.
+ */
+const Home = () => {
     return (
         <div>
           <section className="bg-black text-light mt-2 pt-3 font-weight-bold">

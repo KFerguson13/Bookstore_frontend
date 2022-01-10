@@ -2,15 +2,20 @@ import { useReducer } from 'react';
 import CartContext from './cartContext';
 
 
+//This is the initial state of the cart
 const defaultCartState = {
     booksInCart: [],
     totalPrice: 0
 };
 
+
 const cartReducer = (state, action) => {
+
+    /** For this action, a book is added to the cart. If it's already in the cart, the quantity listed for that book increases. 
+        Total Price also increases. 
+     */
     if (action.type === 'ADD') {
         const indexOfBook = state.booksInCart.findIndex((book) => book.id === action.book.id)
-        console.log(indexOfBook);
 
         let updatedBooksInCart;
         let updatedPrice;
@@ -37,6 +42,10 @@ const cartReducer = (state, action) => {
 
         
     }
+    
+    /** For this action, a book is removed from the cart. Id, price and quantity parameters are accepted. The id is used to find the book
+     * in the cart. If more than one copy of this book is in the cart, its quantity goes down by one. Total price decreases. 
+     */
     if (action.type === 'REMOVE') {
 
         let updatedCart;
@@ -66,6 +75,7 @@ const cartReducer = (state, action) => {
         };
     }
 
+    /** For the checkout action, the cart is emptied. The cart component handles sending the orders. */
     if (action.type === 'CHECKOUT') {
         const emptiedCart = [];
 

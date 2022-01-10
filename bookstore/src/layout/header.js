@@ -4,18 +4,22 @@ import './header.css';
 import { Button, FormControl, Form, Navbar} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-
-const Header = (props) => {
+/** This component is used for easily navigating through the application and includes a search bar for searching up specific titles. */
+const Header = () => {
     const [title, setBookTitle] = useState('')
     let navigate = useNavigate();
 
 
-    function changeHandler(event) {
+    const changeHandler = (event) => {
         setBookTitle(event.target.value)
     }
 
 
-    function searchHandler(event) {
+    /** This is the function used for whenever something is searched in the search bar. Once the title is entered, the title is
+        sent over to the search component which checks whether or not that book exists in the backend. UseNavigate is used to accomplish
+        nagivating to that component's respective page with the title information.
+     */
+    const searchHandler = (event) => {
         event.preventDefault()
 
         let bookToFind = title;

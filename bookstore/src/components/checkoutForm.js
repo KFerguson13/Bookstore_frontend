@@ -11,6 +11,7 @@ const CheckoutForm = (props) => {
     const [address, setAddress] = useState('');
     const [submitted, setSubmitted] = useState(false);
     
+    /** This is for detecting what parts of the entered information is and isn't valid. */
     const [formValidity, setFormValidy] = useState(
         {
             fnValid: true,
@@ -21,6 +22,7 @@ const CheckoutForm = (props) => {
         }
     );
 
+    /** Checking for empty inputs */
     const checkLength = (inputValue) => {
         if (inputValue.trim() === '') {
             return false
@@ -49,6 +51,10 @@ const CheckoutForm = (props) => {
         setAddress(event.target.value);
     };
 
+    /** This function is for when the user is ready to attempt to submit the form. Each input is checked to determine form validity
+        before the form can be submitted. If there's something wrong, the user gets feedback such as when they don't enter a first
+        name. If everything is okay, a function from the cart component is called to submit the data to the backend.
+     */
     const submitHandler = (event) => {
         event.preventDefault();
 

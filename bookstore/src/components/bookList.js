@@ -3,14 +3,16 @@ import { Row, Modal, Spinner, Button} from 'react-bootstrap';
 import './bookList.css';
 import Book from './book';
 
-function BookList() {
+const BookList = () => {
     const [books, setBooks] = useState([]);
     const [showBookAdded, setShowBookAdded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    /** UseEffect is being used so the backend isn't bombarded with get requests. This is where the list of books is fetched 
+       from the backend. A state for the books is used and that state is set to be the response from the backend.
+       */
     useEffect(() => {
         setIsLoading(true);
-        
         fetch('/books', {
         'methods': 'GET',
         headers : {'Content-Type': 'applications.json'}
@@ -21,10 +23,12 @@ function BookList() {
     },[])
 
 
-    const sendAlert = () => {
+    /** Whenever a book is added to the cart, a notification pops up and this is the function used for making sure it shows. */
+    const sendNotification = () => {
         setShowBookAdded(true);
     };
 
+    /** This function is used for hiding the above mentioned notification. */
     const dismissNotification = () => {
         setShowBookAdded(false)
     };
@@ -49,16 +53,16 @@ function BookList() {
             </Modal>
         
         
-        <Row className = "row-cols-auto m-3">
-            {books.map(book => <Book 
+            <Row className = "row-cols-auto m-3">
+                {books.map(book => <Book 
                         key = {book.book_id}
                         title = {book.title} 
                         image = {book.image}
                         id = {book.book_id}
                         price = {book.price}
                         author = {book.author_name}
-                        sendAlert = {sendAlert}/>)}
-        </Row>
+                        sendNotification = {sendNotification}/>)}
+            </Row>
         </div>
 
     )

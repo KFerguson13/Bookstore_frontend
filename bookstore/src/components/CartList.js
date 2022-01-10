@@ -3,6 +3,7 @@ import CartContext from '../store/cartContext';
 import CartItem from './CartItem';
 import { Row } from 'react-bootstrap';
 
+/** This component is just used for listing the cart items. */
 const CartList = () => {
     const cart_context = useContext(CartContext);
     

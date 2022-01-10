@@ -1,5 +1,6 @@
 import './NotFound.css';
 
+/** If the user attempts to find a page that doesn't exist, the information below is returned. */
 const NotFound = () => {
     return (
         <div className = "mt-2 text-center">  

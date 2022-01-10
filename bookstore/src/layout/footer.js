@@ -1,6 +1,7 @@
 import './footer.css';
 import {Navbar, Row, Col} from 'react-bootstrap';
 
+/** This is a solely decorative component that displays basic information about the bookstore. */
 const Footer = () => {
     return (
         <Navbar bg="dark" className = "footer">

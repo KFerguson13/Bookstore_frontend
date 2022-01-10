@@ -5,6 +5,7 @@ import { Row, Modal, Spinner, Button } from 'react-bootstrap';
 import Book from '../components/book';
 
 function Search() {
+    /** useLocation is necessary receive info from the search bar in the header. */
     const location = useLocation();
 
     const [searched, setSearched] = useState(true);
@@ -13,27 +14,38 @@ function Search() {
     const [isLoading, setIsLoading] = useState(true);
     const [showBookAdded, setShowBookAdded] = useState(false);
 
+    /** A notification pops up to show when a book has been added. */
     const sendNotification = () => {
         setShowBookAdded(true);
     };
 
+    /** The notification is closed.  */
     const dismissNotification = () => {
         setShowBookAdded(false)
     };
 
+        /** useEffect is used to specify that the page should only be reloaded when the information received from the header has changed. */
         useEffect(() => {
             setShowBookAdded(false);
             
+            /** The book title entered into the header is sent to the backend and either an error, if no book is found, or a book is returned. 
+                Alternatively, nothing was entered at all in which case the setSearched function is set to false and the user gets feedback
+                that they didn't give any input.
+             */
             const getResult = async () => {
                 setSearched(true);
                 setError(false);
             
+                /** This is for checking if any input was given.  */
                 if (location.state == null || location.state.bookToFind === '') {
                     setSearched(false)
                     setIsLoading(false)
                     return;
                 }
 
+                /** An attempt is made to get a result from the backend. If no book is found, an error is caught and the user is told no
+                    book was found in the backend database.
+                 */
                 try {
                     setIsLoading(true);
                     const response = await fetch('/searchResult', {
@@ -98,7 +110,7 @@ function Search() {
                                 image = {result.image} 
                                 id = {result.book_id} 
                                 price = {result.price} 
-                                sendAlert = {sendNotification}/>
+                                sendNotification = {sendNotification}/>
                         </Row>
                         </div>}
                     </section>
